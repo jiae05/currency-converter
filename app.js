@@ -386,22 +386,26 @@ const BUDGET_STORAGE_KEY = 'travelBudgetItems';
 
 const BUDGET_DOM = {
   baseCurrency:  $('budgetBaseCurrency'),
+  travelers:     $('budgetTravelers'),
   items:         $('budgetItems'),
   empty:         $('budgetEmpty'),
   addBtn:        $('addExpenseBtn'),
   totalAmount:   $('budgetTotalAmount'),
+  perPerson:     $('budgetPerPerson'),
 };
 
 let budgetItems = []; // [{ id, desc, amount, currency }]
 let budgetBase = 'KRW';
+let budgetTravelers = 1;
 
 function loadBudget() {
   try {
     const stored = localStorage.getItem(BUDGET_STORAGE_KEY);
     if (stored) {
       const parsed = JSON.parse(stored);
-      budgetItems = parsed.items || [];
-      budgetBase  = parsed.base  || 'KRW';
+      budgetItems     = parsed.items     || [];
+      budgetBase      = parsed.base      || 'KRW';
+      budgetTravelers = parsed.travelers || 1;
     }
   } catch { /* ignore */ }
 }
@@ -410,6 +414,7 @@ function saveBudget() {
   localStorage.setItem(BUDGET_STORAGE_KEY, JSON.stringify({
     items: budgetItems,
     base: budgetBase,
+    travelers: budgetTravelers,
   }));
 }
 
@@ -419,6 +424,7 @@ function renderBudgetCurrencySelect() {
     .map(c => `<option value="${c}">${c} — ${STATE.currencies[c]}</option>`)
     .join('');
   BUDGET_DOM.baseCurrency.value = budgetBase;
+  BUDGET_DOM.travelers.value = budgetTravelers;
 }
 
 function createExpenseRow(item) {
@@ -531,6 +537,10 @@ async function recalcBudget() {
   });
 
   BUDGET_DOM.totalAmount.textContent = `${formatNumber(total)} ${budgetBase}`;
+  const perPerson = budgetTravelers > 1 ? total / budgetTravelers : null;
+  BUDGET_DOM.perPerson.textContent = perPerson !== null
+    ? `${formatNumber(perPerson)} ${budgetBase}`
+    : '--';
 }
 
 function initBudget() {
@@ -541,6 +551,13 @@ function initBudget() {
 
   BUDGET_DOM.baseCurrency.addEventListener('change', e => {
     budgetBase = e.target.value;
+    saveBudget();
+    recalcBudget();
+  });
+
+  BUDGET_DOM.travelers.addEventListener('input', e => {
+    budgetTravelers = Math.max(1, parseInt(e.target.value) || 1);
+    BUDGET_DOM.travelers.value = budgetTravelers;
     saveBudget();
     recalcBudget();
   });

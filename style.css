@@ -406,6 +406,12 @@ body {
   flex-wrap: wrap;
 }
 
+.budget-header-controls {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
 .budget-base {
   display: flex;
   flex-direction: column;
@@ -419,6 +425,13 @@ body {
   min-width: 140px;
 }
 
+.input-field--sm {
+  height: 38px;
+  font-size: 0.88rem;
+  padding: 0 10px;
+  width: 72px !important;
+}
+
 .budget-items {
   display: flex;
   flex-direction: column;
@@ -428,7 +441,7 @@ body {
 
 .expense-row {
   display: grid;
-  grid-template-columns: 1fr 120px 130px auto;
+  grid-template-columns: 1fr 110px 120px minmax(100px,auto) 28px;
   gap: 8px;
   align-items: center;
   background: var(--color-bg);
@@ -540,22 +553,43 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border-radius: var(--radius-sm);
   padding: 16px 20px;
   color: white;
 }
 
+.budget-total__left,
+.budget-total__right {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.budget-total__right { text-align: right; }
+
+.budget-total__divider {
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255,255,255,0.3);
+  flex-shrink: 0;
+}
+
 .budget-total__label {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  opacity: 0.85;
+  opacity: 0.75;
 }
 
 .budget-total__amount {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: -0.5px;
+}
+
+.budget-total__per-person {
+  font-size: 1.2rem;
 }
 
 /* ── 유틸 ────────────────────────────────────────────────── */

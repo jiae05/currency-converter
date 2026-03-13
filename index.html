@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>환율 변환기</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=4" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
@@ -108,9 +108,15 @@
     <section class="card budget-card">
       <div class="budget-card__header">
         <h2 class="section-title">✈️ 여행 예산 계산기</h2>
-        <div class="budget-base">
-          <label class="input-label" for="budgetBaseCurrency">합산 통화</label>
-          <select id="budgetBaseCurrency" class="select-field select-field--sm"></select>
+        <div class="budget-header-controls">
+          <div class="budget-base">
+            <label class="input-label" for="budgetTravelers">여행 인원</label>
+            <input type="number" id="budgetTravelers" class="input-field input-field--sm" value="1" min="1" step="1" />
+          </div>
+          <div class="budget-base">
+            <label class="input-label" for="budgetBaseCurrency">합산 통화</label>
+            <select id="budgetBaseCurrency" class="select-field select-field--sm"></select>
+          </div>
         </div>
       </div>
 
@@ -121,13 +127,20 @@
       <button class="add-expense-btn" id="addExpenseBtn">+ 지출 추가</button>
 
       <div class="budget-total" id="budgetTotal">
-        <span class="budget-total__label">총 합계</span>
-        <span class="budget-total__amount" id="budgetTotalAmount">--</span>
+        <div class="budget-total__left">
+          <div class="budget-total__label">총 합계</div>
+          <div class="budget-total__amount" id="budgetTotalAmount">--</div>
+        </div>
+        <div class="budget-total__divider"></div>
+        <div class="budget-total__right">
+          <div class="budget-total__label">1인당</div>
+          <div class="budget-total__amount budget-total__per-person" id="budgetPerPerson">--</div>
+        </div>
       </div>
     </section>
 
   </div>
 
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
