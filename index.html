@@ -104,6 +104,28 @@
       </div>
     </section>
 
+    <!-- Travel Budget Section -->
+    <section class="card budget-card">
+      <div class="budget-card__header">
+        <h2 class="section-title">✈️ 여행 예산 계산기</h2>
+        <div class="budget-base">
+          <label class="input-label" for="budgetBaseCurrency">합산 통화</label>
+          <select id="budgetBaseCurrency" class="select-field select-field--sm"></select>
+        </div>
+      </div>
+
+      <div class="budget-items" id="budgetItems">
+        <p class="empty-msg" id="budgetEmpty">지출 항목을 추가해보세요.</p>
+      </div>
+
+      <button class="add-expense-btn" id="addExpenseBtn">+ 지출 추가</button>
+
+      <div class="budget-total" id="budgetTotal">
+        <span class="budget-total__label">총 합계</span>
+        <span class="budget-total__amount" id="budgetTotalAmount">--</span>
+      </div>
+    </section>
+
   </div>
 
   <script src="app.js"></script>
