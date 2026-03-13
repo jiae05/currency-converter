@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>환율 변환기</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Header -->
+    <header class="header">
+      <h1 class="header__title">💱 환율 변환기</h1>
+      <p class="header__subtitle" id="lastUpdated">환율 데이터 로딩 중...</p>
+    </header>
+
+    <!-- Converter Card -->
+    <section class="card converter-card">
+      <div class="converter__inputs">
+        <div class="input-group">
+          <label class="input-label" for="amount">금액</label>
+          <input
+            type="number"
+            id="amount"
+            class="input-field"
+            value="1"
+            min="0"
+            step="any"
+            placeholder="금액 입력"
+          />
+        </div>
+
+        <button class="swap-btn" id="swapBtn" title="통화 교환">⇄</button>
+
+        <div class="currency-selects">
+          <div class="input-group">
+            <label class="input-label" for="fromCurrency">기준 통화</label>
+            <select id="fromCurrency" class="select-field">
+              <option value="">로딩 중...</option>
+            </select>
+          </div>
+          <span class="arrow-icon">→</span>
+          <div class="input-group">
+            <label class="input-label" for="toCurrency">대상 통화</label>
+            <select id="toCurrency" class="select-field">
+              <option value="">로딩 중...</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-box" id="resultBox">
+        <div class="result__main" id="resultMain">--</div>
+        <div class="result__sub" id="resultSub"></div>
+      </div>
+
+      <div class="error-box hidden" id="errorBox">
+        <span id="errorMsg"></span>
+      </div>
+    </section>
+
+    <!-- Chart Section -->
+    <section class="card chart-card">
+      <div class="chart-card__header">
+        <h2 class="section-title">환율 추이</h2>
+        <div class="period-tabs" id="periodTabs">
+          <button class="period-btn active" data-days="7">7일</button>
+          <button class="period-btn" data-days="30">30일</button>
+          <button class="period-btn" data-days="90">90일</button>
+          <button class="period-btn" data-days="365">1년</button>
+        </div>
+      </div>
+      <div class="chart-wrapper">
+        <div class="chart-loading hidden" id="chartLoading">
+          <div class="spinner"></div>
+        </div>
+        <canvas id="rateChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Favorites Section -->
+    <section class="card favorites-card">
+      <div class="favorites-card__header">
+        <h2 class="section-title">즐겨찾기 통화</h2>
+        <button class="add-fav-btn" id="addFavBtn">+ 추가</button>
+      </div>
+
+      <!-- Add Favorite Modal -->
+      <div class="fav-modal hidden" id="favModal">
+        <div class="fav-modal__inner">
+          <label class="input-label" for="favSelect">통화 선택</label>
+          <select id="favSelect" class="select-field"></select>
+          <div class="fav-modal__actions">
+            <button class="btn btn--primary" id="confirmFavBtn">추가</button>
+            <button class="btn btn--ghost" id="cancelFavBtn">취소</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="favorites-grid" id="favoritesGrid">
+        <p class="empty-msg">즐겨찾기 통화를 추가해보세요.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
